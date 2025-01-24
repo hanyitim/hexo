@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="z-index 是在设置层级的时候经常会用到的一个属性，很常用，好像也觉得没什么特别，在看过一些大佬的文章之后才知道原来“世界怎么大，我的知识这么点”  疑问 z-index 除了 position 能使它生效之外，还有什么属性可以让他生效？ 形成层叠上下文的节点，z-index 就能生效（误解）。 子元素的层级就一定在父元素上面（父元素 Position 非 static）？  下面，带着疑问">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2025/01/24/%E5%9F%BA%E4%BA%8Ez-index%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86%E2%80%9C%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="z-index 是在设置层级的时候经常会用到的一个属性，很常用，好像也觉得没什么特别，在看过一些大佬的文章之后才知道原来“世界怎么大，我的知识这么点”  疑问 z-index 除了 position 能使它生效之外，还有什么属性可以让他生效？ 形成层叠上下文的节点，z-index 就能生效（误解）。 子元素的层级就一定在父元素上面（父元素 Position 非 static）？  下面，带着疑问">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-01-24T05:16:01.986Z">
+<meta property="article:modified_time" content="2025-01-24T05:16:12.741Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-基于z-index重新认识“层叠上下文" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/24/%E5%9F%BA%E4%BA%8Ez-index%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86%E2%80%9C%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/" class="article-date">
+  <time class="dt-published" datetime="2025-01-24T05:16:01.986Z" itemprop="datePublished">2025-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>z-index 是在设置层级的时候经常会用到的一个属性，很常用，好像也觉得没什么特别，在看过一些大佬的文章之后才知道原来“世界怎么大，我的知识这么点”</p>
+</blockquote>
+<h3 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h3><ol>
+<li>z-index 除了 position 能使它生效之外，还有什么属性可以让他生效？</li>
+<li>形成层叠上下文的节点，z-index 就能生效（误解）。</li>
+<li>子元素的层级就一定在父元素上面（父元素 Position 非 static）？</li>
+</ol>
+<p>下面，带着疑问去整理相关的知识点。</p>
+<h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>当需要设计一个层级的“层级”的时候</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.box1&#123;</span><br><span class="line">    position:absolute；   //非static【默认】;absolute,fixed,relative</span><br><span class="line">    z-index:2</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//可能我box2 想在box1的上面</span><br><span class="line">.box2&#123;</span><br><span class="line">    postion:absolute;</span><br><span class="line">    z-index:3</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//从之前的应用上来开，在让z-index生效的情况下，z-index 的值是越大表示层级越高【兄弟元素】</span><br></pre></td></tr></table></figure>
+
+<p>可能之前在对于“层级”的一个了解仅限于此，并没有去做更多详细的了解，但是其实这只是 css“层级”关系里面的冰山一角，更具体的，可能需要好好了解一下“层叠上下文”这个点。</p>
+<h3 id="层叠上下文是什么鬼？"><a href="#层叠上下文是什么鬼？" class="headerlink" title="层叠上下文是什么鬼？"></a>层叠上下文是什么鬼？</h3><p>层叠上下文是 HTML 元素的三维概念，这些 HTML 元素在一条假想的相对于面向（电脑屏幕的）视窗或者网页的用户的 z 轴上延伸，HTML 元素依据其自身属性按照优先级顺序占用层叠上下文的空间。</p>
+<p>形成层级上下文的条件有很多，例如：</p>
+<ul>
+<li>根元素（HTML）</li>
+<li>z-index 不为 auto,【position 非 static || display:flex&#x2F;inline-flex ||display:grid】</li>
+<li>固定（fixed） &#x2F; 沾滞（sticky）定位（沾滞定位适配所有移动设备上的浏览器，但老的桌面浏览器不支持）</li>
+<li>opacity 属性值在 (0,1) 这个区间</li>
+<li>transform 不为 none</li>
+<li>filter 不为 none</li>
+<li>mix-blend-mode 不为 normal</li>
+<li>perspective 不是 none</li>
+<li>clip-path 不为 none</li>
+<li>mask&#x2F;mask-image&#x2F;mask-border 不为 none</li>
+<li>isolation 为 isolate</li>
+<li>在 will-change 中指定任意 css 【能通过设置 will-change 对 css 动画进行优化】</li>
+<li>-webkit-overflow-scrolling 为 “touch”</li>
+<li>contain 为 layout 或者 pait</li>
+</ul>
+<p>从上面列出来的属性中，我试着去推断一些信息</p>
+<ol>
+<li>z-index 的方式是非常直接的,通过 z-index 的层级数字来去确定层级关系（在 zIndex 生效的情况下）</li>
+<li>opacity,filter 这两个主要跟色彩的合成有关系，在不同层叠的情况下这两个属性会出现不同的结果（影响到了渲染）</li>
+<li>trnasform,本来以为只有在涉及到 3d 转换的时候才会形成层叠上下文，测试的结果是<code>translate(0,0);</code>也会，那再重新查一下 trnasform 的一个描述“**<em>CSStransform 属性允许你旋转，缩放，倾斜或平移给定元素。这是通过修改&#x3D;&#x3D;CSS 视觉格式化模型的坐标空间&#x3D;&#x3D;来实现的</em>**。”</li>
+</ol>
+<h3 id="谁是老大"><a href="#谁是老大" class="headerlink" title="谁是老大"></a>谁是老大</h3><p>在有多个层叠上下文盒子的情况下，遵循一下规则</p>
+<ol>
+<li>在 z-index 生效的情况下，兄弟元素根据 z-index 的大小来决定谁在上面；</li>
+<li>两个盒子都形成层叠上下文，且&#x3D;&#x3D;z-index:auto&#x3D;&#x3D;,的情况下，根据 dom 节点的顺序来决定谁在上面（后面节点大于前面节点）。</li>
+<li>背景 &lt; 布局 &lt; 内容</li>
+</ol>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>1.<a target="_blank" rel="noopener" href="https://codepen.io/yagao/pen/JjPVmjK">zIndexDemo1</a>，测试层叠上下文跟设置 position 盒子的层叠关系</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">//html</span><br><span class="line">&lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">  &lt;div class=&quot;Box1&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;Box2&quot;&gt;</span><br><span class="line">    hello world</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line"></span><br><span class="line">//css</span><br><span class="line">.Box1&#123;</span><br><span class="line">  position:absolute;</span><br><span class="line">  left:0;</span><br><span class="line">  top:0;</span><br><span class="line">  background-color:pink;</span><br><span class="line">  width:100%;</span><br><span class="line">  height:100px;</span><br><span class="line">&#125;</span><br><span class="line">.Box2&#123;</span><br><span class="line">  width:100%;</span><br><span class="line">  height:40px;</span><br><span class="line">  background-color:red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//此处的结果是Box2被Box1覆盖掉了。Box1脱离了文档流浮在上方</span><br><span class="line"></span><br><span class="line">调整 css</span><br><span class="line"></span><br><span class="line">.Box2&#123;</span><br><span class="line">  width:100%;</span><br><span class="line">  height:40px;</span><br><span class="line">  background-color:red;</span><br><span class="line">  opacity:0.99;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Box2形成层叠上下文，Box2 覆盖了 Box1；</span><br><span class="line"></span><br><span class="line">调整html</span><br><span class="line">&lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">  &lt;div class=&quot;Box2&quot;&gt;</span><br><span class="line">    hello world</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;Box1&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line"></span><br><span class="line">//Box1覆盖着Box2；</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结论：在 Box1 设置了定位之后，会覆盖住 Box2，但在 Box2 添加了 opacity:0.5 形成层叠上下文之后，Box2 跟 Box1 就在同一起跑线上了，这个时候就看 dom 的先后顺序来觉得谁覆盖谁。</p>
+<p>2.<a target="_blank" rel="noopener" href="https://codepen.io/yagao/pen/OJLGGbp">zIndexDemo2</a>，测试 flex 子元素是否让 z-inde 生效</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//html</span><br><span class="line">&lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">  &lt;div class=&quot;Box1&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;Box2&quot;&gt;</span><br><span class="line">    hello world</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line"></span><br><span class="line">//css</span><br><span class="line">.parent&#123;</span><br><span class="line">  display:flex;</span><br><span class="line">&#125;</span><br><span class="line">.Box1&#123;</span><br><span class="line">  width:100px;</span><br><span class="line">  height:100px;</span><br><span class="line">  background-color:pink;</span><br><span class="line">  z-index:2;</span><br><span class="line">&#125;</span><br><span class="line">.Box2&#123;h</span><br><span class="line">  width:100px;</span><br><span class="line">  height:100px;</span><br><span class="line">  background-color:red;</span><br><span class="line">  margin-left:-50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结论：flex 子元素是可以让 z-index 生效的。</p>
+<p>3.<a target="_blank" rel="noopener" href="https://codepen.io/yagao/pen/rNBgYBW">zIndexDemo3</a> 子元素就一定在父元素（position 非 static）上面？</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">//html</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">  &lt;div class=&quot;Box1&quot;&gt;&lt;/div&gt;</span><br><span class="line">  &lt;div class=&quot;Box2&quot;&gt;</span><br><span class="line">    hello world</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;div&gt;</span><br><span class="line"></span><br><span class="line">//css</span><br><span class="line">.parent&#123;</span><br><span class="line">  background-color:yellow;</span><br><span class="line">  padding:30px;</span><br><span class="line">  position:relative;</span><br><span class="line">  z-index:0;</span><br><span class="line">&#125;</span><br><span class="line">.Box1&#123;</span><br><span class="line">  position:absolute;</span><br><span class="line">  left:0;</span><br><span class="line">  top:10px;</span><br><span class="line">  background-color:pink;</span><br><span class="line">  width:100%;</span><br><span class="line">  height:100px;</span><br><span class="line">  z-index:-1;</span><br><span class="line">&#125;</span><br><span class="line">.Box2&#123;</span><br><span class="line">  width:100%;</span><br><span class="line">  height:40px;</span><br><span class="line">  background-color:red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//Box1依然在parent上面</span><br><span class="line"></span><br><span class="line">调整css</span><br><span class="line">.parent&#123;</span><br><span class="line">  background-color:yellow;</span><br><span class="line">  padding:30px;</span><br><span class="line">  position:relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//去除parent的zIndex属性之后，Box1隐藏到了parent后面</span><br><span class="line"></span><br><span class="line">调整css</span><br><span class="line">.parent&#123;</span><br><span class="line">  background-color:yellow;</span><br><span class="line">  padding:30px;</span><br><span class="line">  position:relative;</span><br><span class="line">  opacity:0.99;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//添加opacity:0.99 形成层叠上下文之后，Box1又无法通过zIndex负值隐藏到parent后面</span><br><span class="line"></span><br><span class="line">调整css</span><br><span class="line">.parent&#123;</span><br><span class="line">  background-color:yellow;</span><br><span class="line">  padding:30px;</span><br><span class="line">  position:fixed;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//结果与上面一致</span><br></pre></td></tr></table></figure>
+
+<p>结论：</p>
+<ul>
+<li>z-index:auto 不等于 z-index:0；</li>
+<li>父元素在不形成层叠上下文的情况下，子元素是可以通过 zIndex 隐藏到父元素后面。</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>形成层叠上下文的方式有很多，更具体的看<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context">MDN 的层叠上下文文档</a></li>
+<li>子元素可以通过 zIndex 负值隐藏在父元素后面，前提是父元素不形成层叠上下文</li>
+<li>可以让 zIndex 生效的不只是 postion，还有其他属性</li>
+<li>层级的覆盖<ul>
+<li>zIndex 的大小</li>
+<li>节点先后</li>
+<li>在没有脱离文档流的情况下。形成层叠上下文的节点会覆盖没有形成层叠上下文的节点。</li>
+</ul>
+</li>
+</ol>
+<p><strong>&#x3D;&#x3D;备注：如果有错误的地方麻烦大佬多指点。&#x3D;&#x3D;</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/24/%E5%9F%BA%E4%BA%8Ez-index%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86%E2%80%9C%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/" data-id="cm6aba6590002wsw4bc7legaw" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/24/%E5%85%B3%E4%BA%8Ereferrer/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/01/24/H5%E6%94%AF%E4%BB%98%E8%B8%A9%E5%9D%91%E8%AE%B0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/24/app%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E9%80%82%E9%85%8D/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/24/%E8%B7%A8%E5%9F%9F%E6%96%B9%E6%A1%88%E6%95%B4%E7%90%86/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/24/XSS&CSRF&CSP&ClickJackin/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/24/%E5%85%B3%E4%BA%8Ereferrer/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/24/%E5%9F%BA%E4%BA%8Ez-index%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86%E2%80%9C%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

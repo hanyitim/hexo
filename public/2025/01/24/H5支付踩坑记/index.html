@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在工作中对于 h5 支付这个，遇到的问题很多，所以想记录一下，以后说不定就忘记了，没对接过的，看一下也可以避免很多坑。  背景因需要更灵活的运营场景，在 app 内需要接入第三方（微信、支付宝）h5 支付 基本信息文档微信 h5 支付开发及常见问题：https:&#x2F;&#x2F;pay.weixin.qq.com&#x2F;wiki&#x2F;doc&#x2F;api&#x2F;H5.php?chapter&#x3D;15_4 项目基本的接入方式不做过多的说">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/2025/01/24/H5%E6%94%AF%E4%BB%98%E8%B8%A9%E5%9D%91%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在工作中对于 h5 支付这个，遇到的问题很多，所以想记录一下，以后说不定就忘记了，没对接过的，看一下也可以避免很多坑。  背景因需要更灵活的运营场景，在 app 内需要接入第三方（微信、支付宝）h5 支付 基本信息文档微信 h5 支付开发及常见问题：https:&#x2F;&#x2F;pay.weixin.qq.com&#x2F;wiki&#x2F;doc&#x2F;api&#x2F;H5.php?chapter&#x3D;15_4 项目基本的接入方式不做过多的说">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8db2362egy1gn06ee0xyej20fx0ffmy1.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8db2362egy1gn06exuknij20ks09nmxo.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/8db2362egy1gn06cui283j20gf0bbdgf.jpg">
+<meta property="article:published_time" content="2025-01-24T05:15:01.841Z">
+<meta property="article:modified_time" content="2025-01-24T05:15:04.410Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/large/8db2362egy1gn06ee0xyej20fx0ffmy1.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-H5支付踩坑记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/01/24/H5%E6%94%AF%E4%BB%98%E8%B8%A9%E5%9D%91%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2025-01-24T05:15:01.841Z" itemprop="datePublished">2025-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>在工作中对于 h5 支付这个，遇到的问题很多，所以想记录一下，以后说不定就忘记了，没对接过的，看一下也可以避免很多坑。</p>
+</blockquote>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>因需要更灵活的运营场景，在 app 内需要接入第三方（微信、支付宝）h5 支付</p>
+<h2 id="基本信息文档"><a href="#基本信息文档" class="headerlink" title="基本信息文档"></a>基本信息文档</h2><p>微信 h5 支付开发及常见问题：<a target="_blank" rel="noopener" href="https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=15_4">https://pay.weixin.qq.com/wiki/doc/api/H5.php?chapter=15_4</a></p>
+<h2 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h2><p>基本的接入方式不做过多的说明，下面以项目的维度简单说明一下在使用 h5 支付的过程中碰到的问题，以及处理方式；</p>
+<h3 id="星座牌小游戏"><a href="#星座牌小游戏" class="headerlink" title="星座牌小游戏"></a>星座牌小游戏</h3><h4 id="概述："><a href="#概述：" class="headerlink" title="概述："></a>概述：</h4><p>星座小游戏是一个卡片类抽金币的小游戏，用户通过选择对应的牌来抽取大于支付金额等值的金币；</p>
+<h4 id="基本流程："><a href="#基本流程：" class="headerlink" title="基本流程："></a>基本流程：</h4><p><img src="http://ww1.sinaimg.cn/large/8db2362egy1gn06ee0xyej20fx0ffmy1.jpg" alt="luckdraw.png"></p>
+<h4 id="关键逻辑及处理方式"><a href="#关键逻辑及处理方式" class="headerlink" title="关键逻辑及处理方式"></a>关键逻辑及处理方式</h4><p>一、星座牌小游戏调起微信 h5 支付</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 打开微信支付</span></span><br><span class="line"><span class="keyword">let</span> payParams = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(ret.<span class="property">data</span>.<span class="property">payParams</span>);</span><br><span class="line"><span class="keyword">let</span> openWxUrl =</span><br><span class="line">  payParams.<span class="property">payUrl</span> + <span class="string">&quot;&amp;redirect_url=&quot;</span> + <span class="built_in">encodeURIComponent</span>(redirectUrl);</span><br><span class="line"><span class="keyword">let</span> hideFrame = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&quot;iframe&quot;</span>);</span><br><span class="line">hideFrame.<span class="title function_">setAttribute</span>(<span class="string">&quot;src&quot;</span>, openWxUrl);</span><br><span class="line">hideFrame.<span class="title function_">setAttribute</span>(</span><br><span class="line">  <span class="string">&quot;sandbox&quot;</span>,</span><br><span class="line">  <span class="string">&quot;allow-scripts allow-top-navigation allow-same-origin&quot;</span></span><br><span class="line">);</span><br><span class="line"><span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(hideFrame);</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">这里更加优雅的可以用iframe onload 去处理，因为用户加载iframe的时间是受网络环境影响，直接2s后移除不可控</span></span><br><span class="line"><span class="comment">setTimeout(function() &#123;</span></span><br><span class="line"><span class="comment">   hideFrame.parentNode.removeChild(hideFrame);</span></span><br><span class="line"><span class="comment">&#125;, 2000);</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">hideFrame.<span class="property">onload</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">//其他逻辑</span></span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    hideFrame.<span class="property">parentNode</span>.<span class="title function_">removeChild</span>(hideFrame);</span><br><span class="line">  &#125;, <span class="number">100</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码，有几个处逻辑处理，对应的，通过下面的几个问题解释；</p>
+<ol>
+<li><p>为什么通过 iframe 的形式加载 payUrl？<br>由星座牌小游戏的交互决定，因为用户在支付完之后，还需要在当前页面开奖，因此，通过 iframe 的形式处理，还能解决微信 h5 支付对于 payUrl 加载的 referer 验证问题；</p>
+</li>
+<li><p>iframe 为什么要设置 sandbox？，为什么要设定 setTimeout 去移除 iframe？</p>
+<ul>
+<li>在 ios13 发布的时候，ios 出现了问题，微信 h5 支付没有调起成功；</li>
+<li>app 在安卓的某个版本之后也出现了同样的问题，对应那个版本的 app，app 打包的安卓 sdk 版本做了更新</li>
+</ul>
+</li>
+</ol>
+<p>对应的异常 log 如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">message:Uncaught SecurityError: Failed to set the &#x27;href&#x27; property on &#x27;Location&#x27;: The current window does not have permission to navigate the target frame to &#x27;weixin://wap/pay?prepayid%3Dwx241530497040689dd1394a4f1296524900&amp;package=3510274145&amp;noncestr=1563953450&amp;sign=7867a2dd7feb974db9285725cb2822d0&#x27;.</span><br><span class="line">从log看到的代码error，其实不是业务本身的代码，而是payUrl加载后，支付页里面的&quot;top.location.href&quot;异常，关键代码如下</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//payUrl</span></span><br><span class="line"><span class="keyword">var</span> is_postmsg = <span class="string">&quot;&quot;</span>;</span><br><span class="line"><span class="keyword">if</span> (is_postmsg == <span class="string">&quot;1&quot;</span>) &#123;</span><br><span class="line">  parent.<span class="title function_">postMessage</span>(</span><br><span class="line">    <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(&#123;</span><br><span class="line">      <span class="attr">action</span>: <span class="string">&quot;send_deeplink&quot;</span>,</span><br><span class="line">      <span class="attr">data</span>: &#123;</span><br><span class="line">        <span class="attr">deeplink</span>:</span><br><span class="line">          <span class="string">&quot;weixin://wap/pay?prepayid%3Dwx28141344091494d0c83d3c3cd472e50000&amp;package=3738825662&amp;noncestr=1609136025&amp;sign=02d138bef13beb9222479014a4a4ea85&quot;</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="string">&quot;&quot;</span></span><br><span class="line">  );</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="keyword">var</span> url =</span><br><span class="line">    <span class="string">&quot;weixin://wap/pay?prepayid%3Dwx28141344091494d0c83d3c3cd472e50000&amp;package=3738825662&amp;noncestr=1609136025&amp;sign=02d138bef13beb9222479014a4a4ea85&quot;</span>;</span><br><span class="line">  <span class="keyword">var</span> redirect_url = <span class="string">&quot;https://ulink.com/ulink/lucky/index.html&quot;</span>;</span><br><span class="line">  top.<span class="property">location</span>.<span class="property">href</span> = url;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (redirect_url) &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      top.<span class="property">location</span>.<span class="property">href</span> = redirect_url;</span><br><span class="line">    &#125;, <span class="number">5000</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">window</span>.<span class="property">history</span>.<span class="title function_">back</span>();</span><br><span class="line">    &#125;, <span class="number">5000</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面的代码块可以看到 payUrl 调起微信的逻辑</p>
+<ol>
+<li><p>调起微信走的 else 的逻辑（这里的 postmsg 的逻辑暂时未从微信官方文档内找到对于的配置方式），通过 top.loaction.href&#x3D; url 的形式 加载 scheme 调起；</p>
+</li>
+<li><p>如果有 redirect_url,会设置个定时器, 5 秒后重定向到 redirect_url — 这也是为什么星座牌小游戏需要添加一个 remove iframe 的逻辑的原因,</p>
+</li>
+</ol>
+<p>整体梳理下来，问题的原因就是 pp 在用新的 android sdk 打包之后，webview 的内核版本的提升，对应的内容安全策略（csp）调整（默认设置调整），阻止了 payUrl 通过 top 的方式直接访问父页面的 api;那么这个问题是通过 iframe 设置 sandbox 属性解决:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* sandbox</span></span><br><span class="line"><span class="comment">allow-forms 允许进行提交表单</span></span><br><span class="line"><span class="comment">allow-scripts 运行执行脚本</span></span><br><span class="line"><span class="comment">allow-same-origin 允许同域请求,比如ajax,storage</span></span><br><span class="line"><span class="comment">allow-top-navigation 允许iframe能够主导window.top进行页面跳转</span></span><br><span class="line"><span class="comment">allow-popups 允许iframe中弹出新窗口,比如,window.open,target=”_blank”</span></span><br><span class="line"><span class="comment">allow-pointer-lock 在iframe中可以锁定鼠标，主要和鼠标锁定有关</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">hideFrame.<span class="title function_">setAttribute</span>(</span><br><span class="line">  <span class="string">&quot;sandbox&quot;</span>,</span><br><span class="line">  <span class="string">&quot;allow-scripts allow-top-navigation allow-same-origin&quot;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>3、redirectUrl 是回调地址，微信是怎么跳回指定的地址的？redirectUrl 为什么配置 ulink 的地址？<br>微信处理 redirectUrl 的逻辑</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(redirect_url)</span><br><span class="line">&#123;</span><br><span class="line">   <span class="built_in">setTimeout</span>(</span><br><span class="line">   <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">      top.<span class="property">location</span>.<span class="property">href</span>=redirect_url;</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="number">5000</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(</span><br><span class="line">     <span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">       <span class="variable language_">window</span>.<span class="property">history</span>.<span class="title function_">back</span>();</span><br><span class="line">      &#125;,</span><br><span class="line">  <span class="number">5000</span>);</span><br><span class="line">&#125;</span><br><span class="line">redirectUrl为什么配置ulink的地址？</span><br></pre></td></tr></table></figure>
+
+<p>android 在跳到微信支付完成后，点击支付成功页面的“完成”按钮，会回到调起微信支付的 app，ios 点击完成不会做这部分操作，在有配置 redirectUrl 的情况下会用 safari 打开 redirectUrl；且 redirectUrl 也有域名的验证；</p>
+<p>配置成 ulink 的地址，是为了解决 ios 在支付完成后回到 app 内的处理方式；</p>
+<p>注：ios 也有不能直接回到 app 的情况，而是通过 safari 打开了 ulink 的页面，这种情况，经过跟客户端同事的一同排查的结果是因为用户在安装 app 的时候，没有下载到 apple-app-site-association 这个文件导致；</p>
+<h2 id="app-充值（内嵌、外部）"><a href="#app-充值（内嵌、外部）" class="headerlink" title="app 充值（内嵌、外部）"></a>app 充值（内嵌、外部）</h2><h3 id="概述：-1"><a href="#概述：-1" class="headerlink" title="概述："></a>概述：</h3><p>内嵌页 h5 充值页面，提供方便用户充值的页面，并且支持微信支付，支付宝支付，对应 app 内的充值；</p>
+<h3 id="基本逻辑："><a href="#基本逻辑：" class="headerlink" title="基本逻辑："></a>基本逻辑：</h3><p>同星座牌小游戏类似，不同的地方是开奖变成了用户余额查询；</p>
+<h4 id="一、微信-h5-支付"><a href="#一、微信-h5-支付" class="headerlink" title="一、微信 h5 支付"></a>一、微信 h5 支付</h4><p>避免了星座牌小游戏上喷到的问题之后，暂时（这个在子 app 的充值弹窗上又遇到了新的问题）没其他的问题出现；<br>加载 payUrl 后交互时序图（非官方）：<br><img src="http://ww1.sinaimg.cn/large/8db2362egy1gn06exuknij20ks09nmxo.jpg" alt="wxpayUrl.png"></p>
+<h4 id="二、支付宝-h5-支付（支付宝-h5-支付有两种方式：1-纯-h5-页面支付；2-h5-调起支付宝-app-支付），以下为-h5-调起支付宝-app-支付的流程"><a href="#二、支付宝-h5-支付（支付宝-h5-支付有两种方式：1-纯-h5-页面支付；2-h5-调起支付宝-app-支付），以下为-h5-调起支付宝-app-支付的流程" class="headerlink" title="二、支付宝 h5 支付（支付宝 h5 支付有两种方式：1. 纯 h5 页面支付；2.h5 调起支付宝 app 支付），以下为 h5 调起支付宝 app 支付的流程"></a>二、支付宝 h5 支付（支付宝 h5 支付有两种方式：1. 纯 h5 页面支付；2.h5 调起支付宝 app 支付），以下为 h5 调起支付宝 app 支付的流程</h4><p>支付宝 h5 支付，返回的不是 payUrl，而是一段 formDomString；</p>
+<p>提交 payForm 后交互时序图（非官方）：<br><img src="http://ww1.sinaimg.cn/large/8db2362egy1gn06cui283j20gf0bbdgf.jpg" alt="aliPayForm.png"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 支付宝h5支付，接口返回的form信息 --&gt;</span><br><span class="line">&lt;form name=\&quot;punchout_form\&quot; method=\&quot;post\&quot; action=\&quot;https://openapi.alipay.com/gateway.do?charset=UTF-8&amp;method=alipay.trade.wap.pay&amp;sign=HfcRgFeT%2FSVj1soSQrBQYCV%2BaoQzrBVupczUmmjM0sQ2FqXlFHMqOti4EexmhSh3Ap%2FRAAG8MXlo%2FTbzVquR59bXe3deuTXc30S5cgsV9l00jaKPOKXdSfJah2r%2FR5onafKys9caXLaaQmVwtrSrWr5hMFz%2FmtfZvZWwch%2FFvJuVS0wlGT128GBG0KSiUue0g2Bs%2BVg%2B3WKhIiQLCBMKB7BuuyFCnvwnpjeLiGafjIYr6CNBn83uzac1QX9OBuzp91EVLGbBSwAFyyxALhporUh4pDe27SqJbwg15kQd6tDp2f7423M6AoQGkEDMdzaBWRTu2UrMenzaqDOpFpilHA%3D%3D&amp;return_url=https%3A%2F%2Fapp.test.com%2Fstatic%2Fh5Conversion%2Findex.html&amp;notify_url=https%3A%2F%2Fapp.com%2Fcallback%2Fppywforkylin%2Falipay%2Falipay%2F5103092247759423283&amp;version=1.0&amp;app_id=2021001145660238&amp;sign_type=RSA2&amp;timestamp=2020-12-28+15%3A28%3A39&amp;alipay_sdk=alipay-sdk-java-3.4.49.ALL&amp;format=json\&quot;&gt;\n&lt;input type=\&quot;hidden\&quot; name=\&quot;biz_content\&quot; value=\&quot;&#123;&quot;body&quot;:&quot;10金币&quot;,&quot;out_trade_no&quot;:&quot;1231231233123123123&quot;,&quot;product_code&quot;:&quot;QUICK_WAP_WAY&quot;,&quot;subject&quot;:&quot;10金币&quot;,&quot;timeout_express&quot;:&quot;2m&quot;,&quot;total_amount&quot;:&quot;1&quot;&#125;\&quot;&gt;\n&lt;inp</span><br></pre></td></tr></table></figure>
+
+<p>1、以上 form 代码段直接通过 innerHtml 插入页面还是不行的，script 内的 submit 并不会被执行<br>HTML 5 中指定不执行由 innerHTML 插入的 <script> 标签，解决方式如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//业务处理</span><br><span class="line">$iframe.innerHtml = payForm;</span><br><span class="line">//HTML 5 中指定不执行由 innerHTML 插入的 &lt;script&gt; 标签。</span><br><span class="line">$iframe.qeuerySelector(&#x27;form&#x27;).submit();</span><br></pre></td></tr></table></figure>
+
+<p>提交 Form 表单后，支付宝部分代码<br>支付宝 scheme 唤起逻辑</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安卓走iframe方式唤起</span></span><br><span class="line">        <span class="keyword">if</span> (ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;android&#x27;</span>)&gt;-<span class="number">1</span> &amp;&amp; !noIntentTest) &#123;</span><br><span class="line">            canIntent = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * open client</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        _AP.<span class="property">open</span> = <span class="keyword">function</span> (<span class="params">params</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!domLoaded &amp;&amp; (ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;360 aphone&#x27;</span>)&gt;-<span class="number">1</span> || canIntent)) &#123;</span><br><span class="line">                <span class="keyword">var</span> arg = <span class="variable language_">arguments</span>;</span><br><span class="line">                delayToRun = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">                    _AP.<span class="property">open</span>.<span class="title function_">apply</span>(<span class="literal">null</span>, arg);</span><br><span class="line">                    delayToRun = <span class="literal">null</span>;</span><br><span class="line">                &#125;;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (locked) &#123;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            locked = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">var</span> o;</span><br><span class="line">            <span class="comment">// START::  回跳 scheme 处理</span></span><br><span class="line">            <span class="keyword">var</span> iosScheme, androidScheme, backScheme;</span><br><span class="line">                        <span class="keyword">if</span> (backScheme) &#123;</span><br><span class="line">                iosScheme = backScheme.<span class="property">ios</span>;</span><br><span class="line">                androidScheme = backScheme.<span class="property">android</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                  <span class="variable language_">window</span>.<span class="property">tracker</span>.<span class="title function_">log</span>(&#123;</span><br><span class="line">                    <span class="attr">code</span>: <span class="number">11</span>,</span><br><span class="line">                    <span class="attr">msg</span>: <span class="string">&#x27;scheme来源: &#x27;</span>+ <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(backScheme),</span><br><span class="line">                    <span class="attr">sampleRate</span>: <span class="number">1</span>,</span><br><span class="line">                  &#125;);</span><br><span class="line">                &#125;<span class="keyword">catch</span>(e)&#123;</span><br><span class="line">                  <span class="variable language_">console</span>.<span class="title function_">warn</span>(<span class="string">&#x27;scheme来源获取错误:&#x27;</span>, e)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> params === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (iosScheme) &#123;</span><br><span class="line">                    params.<span class="property">h5FromAppUrlScheme</span> = iosScheme;</span><br><span class="line">                    params.<span class="property">sourceSceneType</span> = <span class="string">&#x27;h5Route&#x27;</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                o = &#123;</span><br><span class="line">                    <span class="string">&#x27;ios&#x27;</span>: <span class="built_in">encodeURIComponent</span>(<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(params)),</span><br><span class="line">                    <span class="string">&#x27;android&#x27;</span>: <span class="built_in">encodeURIComponent</span>(params.<span class="property">dataString</span>)</span><br><span class="line">                &#125;;</span><br><span class="line">                <span class="keyword">if</span> (androidScheme) &#123;</span><br><span class="line">                    o.<span class="property">android</span> = o.<span class="property">android</span> + <span class="string">&#x27;&amp;sourceSceneType=h5Route&amp;h5FromAppUrlScheme=&#x27;</span> + androidScheme</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;params error, pls use JSON format!&#x27;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// END</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// params fault tolerance</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">typeof</span> o.<span class="property">ios</span> !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">                o.<span class="property">ios</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">typeof</span> o.<span class="property">android</span> !== <span class="string">&#x27;string&#x27;</span>) &#123;</span><br><span class="line">                o.<span class="property">android</span> = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// nonsupport Android intent</span></span><br><span class="line">            <span class="keyword">if</span> (!canIntent) &#123;</span><br><span class="line">                <span class="keyword">if</span>(isAndroid) &#123;</span><br><span class="line">                    <span class="keyword">var</span> alipaysUrl = <span class="string">&#x27;alipays://platformapi/startApp?appId=20000125&amp;orderSuffix=&#x27;</span> + o.<span class="property">android</span> +<span class="string">&#x27;#Intent;scheme=alipays;package=com.eg.android.AlipayGphone;end&#x27;</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//fix for iOS QQ browser</span></span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span> (ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;mqqbrowser&#x27;</span>) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">var</span> alipaysUrl = <span class="string">&#x27;alipay://alipayclient/?&#x27;</span> + o.<span class="property">android</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">var</span> alipaysUrl = <span class="string">&#x27;alipay://alipayclient/?&#x27;</span> + o.<span class="property">ios</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">//<span class="doctag">FIXME:</span> 直接判断ios，不判断os版本号</span></span><br><span class="line">                <span class="keyword">if</span> ( ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;qq/&#x27;</span>) &gt; -<span class="number">1</span> || ( ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;safari&#x27;</span>) &gt; -<span class="number">1</span> &amp;&amp; ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;os 9_&#x27;</span>) &gt; -<span class="number">1</span> ) || ( ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;safari&#x27;</span>) &gt; -<span class="number">1</span> &amp;&amp; ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;os 10_&#x27;</span>) &gt; -<span class="number">1</span> ) || ( ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;safari&#x27;</span>) &gt; -<span class="number">1</span> &amp;&amp; ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;os 11_&#x27;</span>) &gt; -<span class="number">1</span> ) || ( ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;safari&#x27;</span>) &gt; -<span class="number">1</span> &amp;&amp; ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;os 12_&#x27;</span>) &gt; -<span class="number">1</span> ) || ( ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;safari&#x27;</span>) &gt; -<span class="number">1</span> &amp;&amp; ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;os 13_&#x27;</span>) &gt; -<span class="number">1</span> ) || ( ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;safari&#x27;</span>) &gt; -<span class="number">1</span> &amp;&amp; ua.<span class="title function_">indexOf</span>(<span class="string">&#x27;os 14_&#x27;</span>) &gt; -<span class="number">1</span> ) ) &#123;</span><br><span class="line">                    <span class="keyword">var</span> openSchemeLink = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;openSchemeLink&#x27;</span>);</span><br><span class="line">                    <span class="keyword">if</span> (!openSchemeLink) &#123;</span><br><span class="line">                        openSchemeLink = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">                        openSchemeLink.<span class="property">id</span> = <span class="string">&#x27;openSchemeLink&#x27;</span>;</span><br><span class="line">                        openSchemeLink.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">                        <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(openSchemeLink);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//openSchemeLink.href = alipaysUrl;</span></span><br><span class="line">                    <span class="comment">// oppo浏览器兼容写法</span></span><br><span class="line">                    openSchemeLink.<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">                        <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = alipaysUrl;</span><br><span class="line">                    &#125;;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// trigger click</span></span><br><span class="line">                    openSchemeLink.<span class="title function_">dispatchEvent</span>(<span class="title function_">customClickEvent</span>());</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">var</span> ifr = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;iframe&#x27;</span>);</span><br><span class="line">                    ifr.<span class="property">src</span> = alipaysUrl;</span><br><span class="line">                    ifr.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">                    <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(ifr);</span><br><span class="line">                &#125;</span><br><span class="line">                $(<span class="string">&#x27;.J-startapp&#x27;</span>).<span class="title function_">attr</span>(<span class="string">&#x27;href&#x27;</span>, alipaysUrl);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//support Android intent</span></span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">var</span> packageKey = <span class="string">&#x27;AlipayGphone&#x27;</span>;</span><br><span class="line">                <span class="keyword">var</span> intentUrl = <span class="string">&#x27;alipays://platformapi/startApp?appId=20000125&amp;orderSuffix=&#x27;</span>+o.<span class="property">android</span>+<span class="string">&#x27;#Intent;scheme=alipays;package=com.eg.android.&#x27;</span>+ packageKey +<span class="string">&#x27;;end&#x27;</span>;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">var</span> openIntentLink = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;openIntentLink&#x27;</span>);</span><br><span class="line">                <span class="keyword">if</span> (!openIntentLink) &#123;</span><br><span class="line">                    openIntentLink = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;a&#x27;</span>);</span><br><span class="line">                    openIntentLink.<span class="property">id</span> = <span class="string">&#x27;openIntentLink&#x27;</span>;</span><br><span class="line">                    openIntentLink.<span class="property">style</span>.<span class="property">display</span> = <span class="string">&#x27;none&#x27;</span>;</span><br><span class="line">                    <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">appendChild</span>(openIntentLink);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="comment">//openIntentLink.href = intentUrl;</span></span><br><span class="line">                <span class="comment">// oppo浏览器兼容写法</span></span><br><span class="line">                openIntentLink.<span class="property">onclick</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">                    <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">href</span> = intentUrl;</span><br><span class="line">                &#125;;</span><br><span class="line"></span><br><span class="line">                <span class="comment">// trigger click</span></span><br><span class="line">                openIntentLink.<span class="title function_">dispatchEvent</span>(<span class="title function_">customClickEvent</span>());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">                locked = <span class="literal">false</span>;</span><br><span class="line">            &#125;, <span class="number">2500</span>)</span><br></pre></td></tr></table></figure>
+
+<p>支付宝结果轮询，以及 returnUrl 逻辑</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//轮询</span></span><br><span class="line"><span class="keyword">var</span> payquery = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (stopQuery) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> argumentsPayquery = <span class="variable language_">arguments</span>;</span><br><span class="line">  <span class="title class_">Zepto</span>.<span class="title function_">ajax</span>(&#123;</span><br><span class="line">    <span class="attr">type</span>: <span class="string">&quot;post&quot;</span>,</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&quot;/h5/h5RoutePayResultQuery.json?h5_route_token=RZ42FugnN5SrDYUBQr3vTTeQg3magDmobilecashierRZ42&amp;need_invoke_app=true&quot;</span> <span class="comment">/*/h5/h5RoutePayResultQuery.json?h5_route_token=*/</span>,</span><br><span class="line">    <span class="attr">data</span>: &#123;</span><br><span class="line">      <span class="attr">_input_charset</span>: <span class="string">&quot;utf-8&quot;</span>,</span><br><span class="line">      <span class="attr">params</span>: $(<span class="string">&quot;input[name=params]&quot;</span>).<span class="title function_">val</span>(),</span><br><span class="line">      <span class="attr">session</span>: <span class="string">&quot;RZ42FugnN5SrDYUBQr3vTTeQg3magDmobilecashierRZ42&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">timeout</span>: <span class="number">30000</span>,</span><br><span class="line">    <span class="attr">dataType</span>: <span class="string">&quot;json&quot;</span>,</span><br><span class="line">    <span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">data</span>) &#123;</span><br><span class="line">      <span class="comment">//已唤起支付宝客户端</span></span><br><span class="line">      <span class="keyword">if</span> (data.<span class="property">data</span>.<span class="property">invokeAlipay</span> &amp;&amp; time) &#123;</span><br><span class="line">        time = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">//成功</span></span><br><span class="line">      <span class="keyword">if</span> (data.<span class="property">control_type</span> == <span class="string">&quot;pay_success&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (data.<span class="property">data</span> &amp;&amp; data.<span class="property">data</span>.<span class="property">returnUrl</span> &amp;&amp; data.<span class="property">data</span>.<span class="property">returnUrl</span> != <span class="string">&quot;&quot;</span>) &#123;</span><br><span class="line">          <span class="variable language_">window</span>.<span class="property">location</span>.<span class="title function_">replace</span>(<span class="built_in">decodeURIComponent</span>(data.<span class="property">data</span>.<span class="property">returnUrl</span>));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">//继续轮询</span></span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span> (data.<span class="property">control_type</span> == <span class="string">&quot;h5_route_need_pay_query&quot;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!data.<span class="property">data</span>.<span class="property">stopQuery</span>) &#123;</span><br><span class="line">          <span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">            argumentsPayquery.<span class="title function_">callee</span>();</span><br><span class="line">          &#125;, data.<span class="property">data</span>.<span class="property">dismisstime</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="子-app-充值弹窗"><a href="#子-app-充值弹窗" class="headerlink" title="子 app-充值弹窗"></a>子 app-充值弹窗</h3><h4 id="概述：-2"><a href="#概述：-2" class="headerlink" title="概述："></a>概述：</h4><p>app 内需要有一个 h5 充值的半屏弹窗，只接入微信 h5 支付</p>
+<p>问题：<br>1、iphone 用户，在 h5 调起微信 app 支付界面后，取消或者完成支付后没有返回 app<br>原因：客户端的 ua 问题</p>
+<p>1、子 app 与主 app 的 ua 比较<br>子 app：</p>
+<p>userAgent%20/3.9.0_build119317%20NetType/WiFi%20Language/zh-Hans-CN），</p>
+<p>主 app:</p>
+<p>Mozilla/5.0%20(iPhone;%20CPU%20iPhone%20OS%2012_4_1%20like%20Mac%20OS%20X)%20AppleWebKit/605.1.15%20(KHTML,%20like%20Gecko)%20Mobile/15E148%20/1.8.8_build132540%20NetType/WiFi%20Language/zh-Hans-CN）</p>
+<p>调试：通过 whistle 调整 userAgent 为添加 mobile 标识后，测试正常（推测微信支付界面点击完成或者取消用 safari 访问 redirectUrl 的逻辑中，有 ua 的判断逻辑）</p>
+<p>表现：子 app 调起微信支付后，点击取消，不执行回调 url</p>
+<p>处理方案：下个版本需要更新 ios webview 的 ua</p>
+<p>备注：这边尝试用扫一扫打开星座牌小游戏，结果是一样的，都是不能回到 app（这边没找到星座牌小游戏的入口，只能通过扫一扫测试，历史遗留问题）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2025/01/24/H5%E6%94%AF%E4%BB%98%E8%B8%A9%E5%9D%91%E8%AE%B0/" data-id="cm6ab5u9e0000l2w4h4ko5o2m" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/01/24/%E5%9F%BA%E4%BA%8Ez-index%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86%E2%80%9C%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/01/24/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">January 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/01/24/app%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5%E9%80%82%E9%85%8D/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/24/%E8%B7%A8%E5%9F%9F%E6%96%B9%E6%A1%88%E6%95%B4%E7%90%86/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/24/XSS&CSRF&CSP&ClickJackin/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/24/%E5%85%B3%E4%BA%8Ereferrer/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2025/01/24/%E5%9F%BA%E4%BA%8Ez-index%E9%87%8D%E6%96%B0%E8%AE%A4%E8%AF%86%E2%80%9C%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
